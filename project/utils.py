@@ -46,22 +46,23 @@ def load_embeddings(embeddings_path):
     # Note that here you also need to know the dimension of the loaded embeddings.
     # When you load the embeddings, use numpy.float32 type as dtype
 
-    ########################
-    #### YOUR CODE HERE ####
-    ########################
+    embeddings = dict()
+    for line in open(embeddings_path, encoding='utf-8'):
+        row = line.strip().split('\t')
+        embeddings[row[0]] = np.array(row[1:], dtype=np.float32)
+    embeddings_dim = embeddings[list(embeddings)[0]].shape[0]
 
-        pass 
+    return embeddings, embeddings_dim
+
 
 def question_to_vec(question, embeddings, dim):
     """Transforms a string to an embedding by averaging word embeddings."""
     
-    # Hint: you have already implemented exactly this function in the 3rd assignment.
-
-    ########################
-    #### YOUR CODE HERE ####
-    ########################
-
-        pass
+    word_vectors = [embeddings[word] for word in question.split() if word in embeddings]
+    if not word_vectors:
+        return np.zeros(dim)
+    else:
+        return np.mean(word_vectors, axis=0)
 
 
 def unpickle_file(filename):

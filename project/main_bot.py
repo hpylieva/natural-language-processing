@@ -7,6 +7,8 @@ import os
 import json
 
 from requests.compat import urljoin
+from utils import *
+from dialogue_manager import *
 
 
 class BotHandler(object):
@@ -42,7 +44,8 @@ class BotHandler(object):
 
     def get_answer(self, question):
         if question == '/start':
-            return "Hi, I am your project bot. How can I help you today?"
+            return "Hi, I am here to answer some technical questions about programming or chat a little. " \
+                   "I'm still studying the world, so my answers may not be accurate, but I will try to help you sincerely."
         return self.dialogue_manager.generate_answer(question)
 
 
@@ -61,7 +64,7 @@ class SimpleDialogueManager(object):
     This is the simplest dialogue manager to test the telegram bot.
     Your task is to create a more advanced one in dialogue_manager.py."
     """
-    
+
     def generate_answer(self, question): 
         return "Hello, world!" 
         
@@ -84,8 +87,11 @@ def main():
     # This is the point where you plug it into the Telegram bot. 
     # Do not forget to import all needed dependencies when you do so.
     
-    simple_manager = SimpleDialogueManager()
-    bot = BotHandler(token, simple_manager)
+    # simple_manager = SimpleDialogueManager()
+    # bot = BotHandler(token, simple_manager)
+
+    dialog_manager = DialogueManager(RESOURCE_PATH)
+    bot = BotHandler(token, dialog_manager)
     
     ###############################################################
 
