@@ -1,2 +1,2 @@
-# natural-language-processing
+# NLP Coursera
 My accomplishments on "Natural Language Processing" Coursera course.
